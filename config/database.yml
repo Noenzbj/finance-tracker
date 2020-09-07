@@ -21,7 +21,7 @@ default: &default
   # https://guides.rubyonrails.org/configuring.html#database-pooling
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   username: financetrackeruser
-  password: <%= ENV['FINANCE_TRACKER_DATABASE_PASSWORD'] %>
+  password: <%= Rails.application.credentials.finance_tracker_pg[:db_user_pw] %>
 
 development:
   <<: *default
@@ -35,7 +35,7 @@ development:
 
   # The password associated with the postgres role (username).
   username: financetrackeruser
-  password: <%= ENV['FINANCE_TRACKER_DATABASE_PASSWORD'] %>
+  password: <%= Rails.application.credentials.finance_tracker_pg[:db_user_pw] %>
 
   # Connect on a TCP socket. Omitted by default since the client uses a
   # domain socket that doesn't need configuration. Windows does not have
@@ -62,7 +62,7 @@ test:
   <<: *default
   database: finance_tracker_test
   username: financetrackeruser
-  password: <%= ENV['FINANCE_TRACKER_DATABASE_PASSWORD'] %>
+  password: <%= Rails.application.credentials.finance_tracker_pg[:db_user_pw] %>
   host: localhost
   port: 5432
 # As with config/credentials.yml, you never want to store sensitive information,
@@ -88,4 +88,5 @@ production:
   <<: *default
   database: finance_tracker_production
   username: financetrackeruser
-  password: <%= ENV['FINANCE_TRACKER_DATABASE_PASSWORD'] %>
+  password: <%= Rails.application.credentials.finance_tracker_pg[:db_user_pw] %>
+#<%= ENV['FINANCE_TRACKER_DATABASE_PASSWORD'] %>
